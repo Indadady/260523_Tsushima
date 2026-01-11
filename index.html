@@ -18,7 +18,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="[VIP] 대마도 & 부산 3일 프라이빗 투어">
     <meta property="og:description" content="태백 출발 12인 단독 행사: 국경의 섬 대마도와 부산의 낭만을 잇는 여정">
-    <!-- 카카오톡 썸네일 변경: 여행지(미우다 해변) 전경 사진으로 교체 -->
+    <!-- 카카오톡 썸네일: 로고 대신 여행지(미우다 해변) 전경 사진 사용 (대표님 요청사항 반영) -->
     <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Miuda_Beach_Tsushima_Japan01s5s4592.jpg/1280px-Miuda_Beach_Tsushima_Japan01s5s4592.jpg">
     
     <!-- Tailwind CSS -->
@@ -46,8 +46,8 @@
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* 대마도 미우다 해변 느낌의 배경 */
-            background-image: linear-gradient(rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.6)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Miuda_Beach_Tsushima_Japan01s5s4592.jpg/1280px-Miuda_Beach_Tsushima_Japan01s5s4592.jpg');
+            /* 배경 이미지 변경: 요청하신 미우다 해변 사진 적용 */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.6)), url('https://tse1.mm.bing.net/th/id/OIP.wr0Q9wXFngGo8114IUoFSQHaE6?w=474&h=474&c=7&p=0');
             background-size: cover;
             background-position: center;
             z-index: -1;
@@ -256,7 +256,7 @@
                     <!-- Hotel 1 -->
                     <div class="hotel-card rounded-2xl overflow-hidden group">
                         <div class="h-80 overflow-hidden relative">
-                            <!-- Updated Image: Izuhara View Hotel -->
+                            <!-- Image: Izuhara View Hotel -->
                             <img src="https://q-xx.bstatic.com/xdata/images/hotel/840x460/230431449.jpg?k=ba8efe083358eb3fd861d4d4e7a4965986a684354e45f0d3fdacebcb165e6258&o=" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="이즈하라 뷰 호텔">
                             <div class="absolute top-4 left-4 bg-ocean text-white text-xs font-bold px-3 py-1 rounded-full">DAY 1</div>
                         </div>
@@ -274,17 +274,17 @@
                     <!-- Hotel 2 -->
                     <div class="hotel-card rounded-2xl overflow-hidden group">
                         <div class="h-80 overflow-hidden relative">
-                            <!-- Updated Image: Busan Asti Hotel -->
-                            <img src="https://tse3.mm.bing.net/th/id/OIP.zMfCjgIdTe5UQ9FlF0dIcQHaE8?cb=defcache2&defcache=1&w=474&h=379&c=7&p=0" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="부산 아스티 호텔">
+                            <!-- Updated Image: Griffin Bay Hotel -->
+                            <img src="https://pix10.agoda.net/hotelImages/29383239/-1/a6b21849cb8b0186014ca70cef996297.jpg?ce=0&s=414x232" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="그리핀 베이 호텔">
                             <div class="absolute top-4 left-4 bg-ocean text-white text-xs font-bold px-3 py-1 rounded-full">DAY 2</div>
                         </div>
                         <div class="p-8">
-                            <h3 class="text-2xl font-bold mb-2">부산 아스티 호텔 (부산역)</h3>
-                            <p class="text-sm text-slate-400 mb-4">Asti Hotel Busan Station (또는 동급)</p>
+                            <h3 class="text-2xl font-bold mb-2">그리핀 베이 호텔</h3>
+                            <p class="text-sm text-slate-400 mb-4">Griffin Bay Hotel (남포동 자갈치)</p>
                             <ul class="space-y-3 text-sm text-slate-300">
-                                <li class="flex items-start"><i class="fa-solid fa-location-dot w-6 text-cyan-400 mt-1"></i> <span>부산역 도보 1분 (태백 복귀 최적 동선)</span></li>
-                                <li class="flex items-start"><i class="fa-solid fa-city w-6 text-cyan-400 mt-1"></i> <span>부산항대교와 도심이 보이는 파노라마 뷰</span></li>
-                                <li class="flex items-start"><i class="fa-solid fa-star w-6 text-yellow-400 mt-1"></i> <span>12인 단체가 이용하기 쾌적한 비즈니스 호텔</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-location-dot w-6 text-cyan-400 mt-1"></i> <span>자갈치시장/BIFF광장 도보권 (관광 최적)</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-bed w-6 text-cyan-400 mt-1"></i> <span>약 160실 규모의 쾌적한 비즈니스 호텔</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-wifi w-6 text-yellow-400 mt-1"></i> <span>24시간 프론트 & 무료 Wi-Fi 제공</span></li>
                             </ul>
                         </div>
                     </div>
@@ -604,7 +604,7 @@
                     { time: "17:10", title: "히타카츠 출발", desc: "대마도를 뒤로하고 부산으로 귀환" },
                     { time: "18:30", title: "부산 도착 & 호텔 이동", desc: "부산 도착 후 전용 차량으로 호텔 이동" },
                     { time: "19:30", title: "부산 자갈치 시장 (자유석식)", desc: "부산의 맛, 자갈치 시장 또는 남포동 먹자골목 투어" },
-                    { time: "21:00", title: "아스티 호텔 투숙", desc: "부산역 인근 쾌적한 호텔에서 휴식" }
+                    { time: "21:00", title: "그리핀 베이 호텔 투숙", desc: "남포동/자갈치 인근 쾌적한 호텔에서 휴식" }
                 ]
             },
             day3: {
