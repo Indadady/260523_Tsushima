@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP 초청: 대마도 & 부산 3일 힐링 투어 (태백 출발)</title>
+    
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JLH9GD9SVR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JLH9GD9SVR');
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="[VIP] 대마도 & 부산 3일 프라이빗 투어">
+    <meta property="og:description" content="태백 출발 12인 단독 행사: 국경의 섬 대마도와 부산의 낭만을 잇는 여정">
+    <meta property="og:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; color: #1e293b; word-break: keep-all; }
+        .font-hand { font-family: 'Nanum Pen Script', cursive; }
+        
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* 대마도 미우다 해변 느낌의 배경 */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.6)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Miuda_Beach_Tsushima_Japan01s5s4592.jpg/1280px-Miuda_Beach_Tsushima_Japan01s5s4592.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        .ocean-text { color: #0ea5e9; }
+        .bg-ocean { background-color: #0ea5e9; }
+        .bg-navy { background-color: #0f172a; }
+        
+        /* Timeline */
+        .timeline-item { position: relative; padding-left: 2rem; padding-bottom: 2rem; border-left: 1px solid #e2e8f0; }
+        .timeline-item:last-child { border-left: none; padding-bottom: 0; }
+        .timeline-dot { position: absolute; left: -0.35rem; top: 0.25rem; width: 0.75rem; height: 0.75rem; border-radius: 50%; background-color: #0ea5e9; outline: 4px solid white; }
+
+        .info-card { transition: all 0.3s ease; }
+        .info-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        .video-thumbnail { position: relative; cursor: pointer; overflow: hidden; border-radius: 1rem; }
+        .video-thumbnail::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.2); z-index: 1; transition: background 0.3s; }
+        .video-thumbnail:hover::before { background: rgba(0, 0, 0, 0.4); }
+        .video-thumbnail.playing::before { display: none; }
+        
+        .play-button { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            width: 70px; height: 70px; background: rgba(255, 255, 255, 0.95); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            z-index: 2; transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .video-thumbnail:hover .play-button { transform: translate(-50%, -50%) scale(1.1); background: #0ea5e9; color: white; }
+
+        /* Floating Memo - Post-it Style */
+        #memo-panel {
+            transform: translateY(110%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #memo-panel.open {
+            transform: translateY(0);
+        }
+        .paper-lines {
+            background-image: linear-gradient(#999 1px, transparent 1px);
+            background-size: 100% 1.5rem;
+            line-height: 1.5rem;
+            background-position-y: 1.5rem;
+            background-color: #fef9c3;
+        }
+        
+        /* Checkbox Custom Style */
+        .custom-checkbox input:checked + div {
+            background-color: #0ea5e9;
+            border-color: #0ea5e9;
+        }
+        .custom-checkbox input:checked + div::after {
+            content: '✔';
+            color: white;
+            font-size: 14px;
+            display: block;
+            text-align: center;
+        }
+        .strikethrough-checked input:checked ~ span {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+
+        /* Hotel Card */
+        .hotel-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        .hotel-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        /* Custom Scrollbar for Checklist */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.1);
+            border-radius: 3px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,0,0,0.2);
+        }
+
+        /* Tab Styles with ARIA focus states */
+        .tab-btn.active {
+            background-color: #fef9c3; /* Post-it Yellow */
+            border-bottom: 4px solid #eab308;
+            color: #1e293b;
+            font-weight: 800;
+        }
+        .tab-btn {
+            background-color: #f8fafc;
+            color: #64748b;
+        }
+        
+        /* Attention Animation */
+        @keyframes subtle-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        .animate-attention {
+            animation: subtle-bounce 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <!-- Header -->
+    <header class="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-4 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex-shrink-0">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png" alt="Tourmaker" class="h-10 w-auto">
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#concept" class="text-sm font-bold text-slate-600 hover:text-[#0ea5e9] transition">CONCEPT</a>
+                <a href="#hotel" class="text-sm font-bold text-slate-600 hover:text-[#0ea5e9] transition">STAY</a>
+                <a href="#schedule" class="text-sm font-bold text-slate-600 hover:text-[#0ea5e9] transition">ITINERARY</a>
+                <a href="#guide" class="text-sm font-bold text-slate-600 hover:text-[#0ea5e9] transition">GUIDE</a>
+            </nav>
+            <a href="tel:01089196688" class="bg-navy text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg flex items-center gap-2 hover:bg-slate-700 transition">
+                <i class="fa-solid fa-phone"></i> 상담 전담 연결
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section text-white">
+            <div class="container mx-auto px-4 text-center z-10 animate-up">
+                <div class="mb-6">
+                    <!-- D-Day with specific criteria -->
+                    <span id="d-day-tag" class="bg-red-600 text-white px-6 py-2 rounded-full text-xl font-black shadow-lg">D-DAY 계산중...</span>
+                </div>
+                <span class="inline-block border border-white/30 bg-white/10 backdrop-blur px-4 py-1 rounded-full text-xs font-bold tracking-widest mb-6 uppercase">Tourmaker Private Collection</span>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+                    국경의 섬과 항구의 낭만,<br>
+                    <span class="ocean-text">TSUSHIMA & BUSAN</span><br>
+                    HEALING JOURNEY
+                </h1>
+                <p class="text-lg md:text-xl font-medium text-slate-100 mb-2 max-w-2xl mx-auto">
+                    2026년 5월 23일, 12분만을 위한 프라이빗 투어가 시작됩니다.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                    <a href="#schedule" class="bg-ocean text-white px-8 py-5 rounded-sm font-bold text-lg hover:bg-sky-600 transition shadow-xl min-w-[200px]">일정 확인하기</a>
+                    <a href="#hotel" class="bg-transparent border border-white text-white px-8 py-5 rounded-sm font-bold text-lg hover:bg-white hover:text-navy transition min-w-[200px]">호텔&특식 상세보기</a>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <i class="fa-solid fa-chevron-down text-white/50 text-2xl"></i>
+            </div>
+        </section>
+
+        <!-- Premium Concept -->
+        <section id="concept" class="py-24 bg-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">PREMIUM 3 DAYS</h2>
+                <div class="w-16 h-1 bg-ocean mx-auto mb-6"></div>
+                <p class="text-slate-600 font-medium mb-16">태백 출발 12인 단체만을 위한 맞춤형 힐링 여행</p>
+
+                <div class="grid md:grid-cols-3 gap-12">
+                    <div class="text-center group">
+                        <div class="w-20 h-20 mx-auto bg-sky-50 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-ship text-3xl text-ocean"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Island & Ocean</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">팬스타 크루즈로 떠나는 국경의 섬 대마도.<br>에메랄드빛 미우다 해변과 아소만의 절경을 만납니다.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="w-20 h-20 mx-auto bg-sky-50 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-utensils text-3xl text-ocean"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Gourmet Trip</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">대마도의 해산물 BBQ 특식부터<br>부산 해운대 금수복국(또는 동급) 미식 체험까지.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="w-20 h-20 mx-auto bg-sky-50 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-van-shuttle text-3xl text-ocean"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Private Service</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">태백-부산 이동 동선 고려 및<br>12인 단독 차량/가이드 배정으로 편안한 일정 진행.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stay Showcase -->
+        <section id="hotel" class="py-24 bg-navy text-white relative overflow-hidden">
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="text-center mb-16">
+                    <span class="text-cyan-400 font-bold tracking-widest text-sm uppercase mb-4 block">Recommended Stay</span>
+                    <h2 class="text-4xl font-black mb-4">Comfort & View</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">대마도의 오션뷰와 부산의 시티뷰를 모두 즐기는 엄선된 숙박</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    
+                    <!-- Hotel 1 -->
+                    <div class="hotel-card rounded-2xl overflow-hidden group">
+                        <div class="h-80 overflow-hidden relative">
+                            <!-- Updated Image: Izuhara View Hotel -->
+                            <img src="https://q-xx.bstatic.com/xdata/images/hotel/840x460/230431449.jpg?k=ba8efe083358eb3fd861d4d4e7a4965986a684354e45f0d3fdacebcb165e6258&o=" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="이즈하라 뷰 호텔">
+                            <div class="absolute top-4 left-4 bg-ocean text-white text-xs font-bold px-3 py-1 rounded-full">DAY 1</div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2">대마도 이즈하라 뷰 호텔</h3>
+                            <p class="text-sm text-slate-400 mb-4">Izuhara View Hotel (Ocean View)</p>
+                            <ul class="space-y-3 text-sm text-slate-300">
+                                <li class="flex items-start"><i class="fa-solid fa-water w-6 text-cyan-400 mt-1"></i> <span>전 객실 탁 트인 오션뷰 조망</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-bus w-6 text-cyan-400 mt-1"></i> <span>야간 시내 셔틀 서비스 (19시/21시)</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-utensils w-6 text-cyan-400 mt-1"></i> <span>신선한 해산물과 고기 BBQ 특식 제공</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Hotel 2 -->
+                    <div class="hotel-card rounded-2xl overflow-hidden group">
+                        <div class="h-80 overflow-hidden relative">
+                            <!-- Updated Image: Busan Asti Hotel -->
+                            <img src="https://tse3.mm.bing.net/th/id/OIP.zMfCjgIdTe5UQ9FlF0dIcQHaE8?cb=defcache2&defcache=1&w=474&h=379&c=7&p=0" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="부산 아스티 호텔">
+                            <div class="absolute top-4 left-4 bg-ocean text-white text-xs font-bold px-3 py-1 rounded-full">DAY 2</div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2">부산 아스티 호텔 (부산역)</h3>
+                            <p class="text-sm text-slate-400 mb-4">Asti Hotel Busan Station (또는 동급)</p>
+                            <ul class="space-y-3 text-sm text-slate-300">
+                                <li class="flex items-start"><i class="fa-solid fa-location-dot w-6 text-cyan-400 mt-1"></i> <span>부산역 도보 1분 (태백 복귀 최적 동선)</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-city w-6 text-cyan-400 mt-1"></i> <span>부산항대교와 도심이 보이는 파노라마 뷰</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-star w-6 text-yellow-400 mt-1"></i> <span>12인 단체가 이용하기 쾌적한 비즈니스 호텔</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Itinerary -->
+        <section id="schedule" class="py-24 bg-slate-50">
+            <div class="container mx-auto px-4 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">ITINERARY</h2>
+                    <p class="text-slate-600 font-medium mb-2">2박 3일간의 대마도 & 부산 완벽 일주</p>
+                    <p class="text-xs text-slate-400">* 상기 일정은 선박 및 현지 사정에 의하여 다소 변경 될 수 있습니다.</p>
+                </div>
+                <!-- Added role="tablist" for accessibility -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="flex overflow-x-auto border-b border-slate-100 no-scrollbar" id="dayTabs" role="tablist"></div>
+                    <div id="scheduleContent" class="p-6 md:p-12 min-h-[400px]"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Travel Guide -->
+        <section id="guide" class="py-24 bg-white">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">TRAVEL GUIDE</h2>
+                    <p class="text-slate-600 font-medium">안전하고 편안한 여행을 위한 체크리스트</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="info-card bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                        <i class="fa-solid fa-passport text-3xl text-ocean mb-6"></i>
+                        <h3 class="text-xl font-bold mb-4">여권 준비</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">유효기간이 6개월 이상 남은 여권은 필수입니다. 출발 전 반드시 확인해주세요.</p>
+                    </div>
+                    <div class="info-card bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                        <i class="fa-solid fa-plug text-3xl text-orange-400 mb-6"></i>
+                        <h3 class="text-xl font-bold mb-4">전압 정보 (대마도)</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">일본은 110V를 사용합니다. 대마도 일정 시 '돼지코' 어댑터를 준비해 주세요.</p>
+                    </div>
+                    <div class="info-card bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                        <i class="fa-solid fa-bus text-3xl text-green-500 mb-6"></i>
+                        <h3 class="text-xl font-bold mb-4">12인 전용 차량</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">우리 일행만을 위한 단독 차량(쏠라티/미니버스 급)으로 대마도와 부산을 편안하게 이동합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Preview -->
+        <section class="py-24 bg-slate-900 text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-black mb-4 uppercase">PREVIEW TSUSHIMA</h2>
+                <p class="text-slate-400 mb-12">영상으로 미리 만나는 대마도의 아름다움</p>
+                <div class="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
+                    <!-- Updated: 대마도 홍보 영상 (Start at 11s) -->
+                    <div class="video-thumbnail relative pb-[56.25%]" onclick="playVideo(this, 'Kw45oSSZE_E')">
+                        <img src="https://img.youtube.com/vi/Kw45oSSZE_E/hqdefault.jpg" class="absolute top-0 left-0 w-full h-full object-cover" alt="Video Thumbnail">
+                        <div class="play-button"><i class="fa-solid fa-play text-slate-900 text-2xl"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Company Link & Action (담당자 명함 스타일) -->
+        <section class="py-20 bg-[#f8f5f0]">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-black text-slate-900 mb-8">Reservation & Contact</h2>
+                
+                <!-- 1분 요약 & 하이라이트 아이콘 (마케팅 포인트) -->
+                <div class="mb-10 text-slate-600">
+                    <p class="text-lg font-bold mb-6">"대마도 오션뷰 1박 + 부산 시티투어 1박, 12명 단독 풀패키지"</p>
+                    <div class="flex justify-center gap-6 md:gap-12">
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-12 h-12 rounded-full bg-ocean/10 flex items-center justify-center text-ocean text-xl"><i class="fa-solid fa-hot-tub-person"></i></div>
+                            <span class="text-xs font-bold">온천욕 포함</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-12 h-12 rounded-full bg-ocean/10 flex items-center justify-center text-ocean text-xl"><i class="fa-solid fa-bus"></i></div>
+                            <span class="text-xs font-bold">전용 차량</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-12 h-12 rounded-full bg-ocean/10 flex items-center justify-center text-ocean text-xl"><i class="fa-solid fa-utensils"></i></div>
+                            <span class="text-xs font-bold">전 일정 식사</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 items-stretch justify-center">
+                    
+                    <!-- 여행 정보 요약 -->
+                    <div class="w-full md:w-1/2 bg-white p-8 rounded-xl shadow-lg border-l-4 border-ocean text-left flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-xl mb-6 text-slate-800">📌 여행 핵심 정보</h3>
+                            <div class="space-y-4 text-sm">
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-500">출발일</span>
+                                    <span class="font-bold text-slate-900">2026년 5월 23일 (토)</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-500">이동수단</span>
+                                    <span class="font-bold text-slate-900">팬스타 쓰시마링크 (부산항 출발)</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-500">인원</span>
+                                    <span class="font-bold text-slate-900">12명 단독 VIP 프라이빗</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 필수 고지 사항 (신뢰 강화) -->
+                        <div class="mt-6 pt-4 border-t border-slate-100 bg-slate-50 p-4 rounded text-xs text-slate-500 leading-relaxed">
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li class="font-bold text-red-500">대마도 투어는 패키지 상품(연합 행사)으로 진행됩니다.</li>
+                                <li><strong>포함:</strong> 왕복 선박료, 호텔(2인1실), 전 일정 식사(특식포함), 차량/가이드, 입장료</li>
+                                <li><strong>불포함:</strong> 현지 가이드/기사 경비(2만원), 부두세(약 9천원), 개인 경비</li>
+                                <li><strong>유의사항:</strong> 천재지변으로 인한 선박 결항 시 대체 일정으로 진행될 수 있습니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 담당자 명함 -->
+                    <div class="w-full md:w-1/2 bg-navy p-8 rounded-xl shadow-lg text-white text-left relative overflow-hidden group flex flex-col justify-center">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i class="fa-solid fa-passport text-9xl"></i>
+                        </div>
+                        <p class="text-cyan-400 font-bold text-xs uppercase tracking-widest mb-2">Reservation Specialist</p>
+                        <!-- Updated Contact Info -->
+                        <h3 class="text-3xl font-black mb-1">김동석 <span class="text-lg font-normal text-slate-400">담당자</span></h3>
+                        <p class="text-slate-400 text-sm mb-8">투어메이커 예약/상담 전담</p>
+                        
+                        <div class="space-y-3 relative z-10">
+                            <a href="tel:01089196688" class="block bg-white text-navy py-6 px-4 rounded-lg text-center hover:bg-ocean hover:text-white transition shadow-md group-hover:scale-105 duration-300">
+                                <span class="block text-lg font-bold mb-2 text-slate-500 group-hover:text-blue-100"><i class="fa-solid fa-phone mr-2"></i> 전화 연결하기</span>
+                                <span class="block text-3xl font-black text-navy group-hover:text-white tracking-tight">010-8919-6688 <span class="text-lg font-normal align-middle">(직통)</span></span>
+                            </a>
+                            <a href="sms:01089196688" class="block border border-white/30 text-white font-medium py-4 px-4 rounded-lg text-center hover:bg-white/10 transition">
+                                <i class="fa-solid fa-comment-sms mr-2"></i> 문자 문의하기
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Memo UI (Left Side) -->
+    <div class="fixed bottom-6 left-6 z-[60]">
+        <button onclick="toggleMemo()" class="animate-attention group flex items-center justify-center gap-2 bg-yellow-400 text-slate-900 px-6 py-4 rounded-full shadow-2xl hover:bg-yellow-300 transition hover:-translate-y-1 font-bold border-4 border-white relative">
+            <i class="fa-solid fa-pen-to-square text-xl"></i>
+            <span>여행 메모</span>
+            <span class="absolute -top-1 -right-1 flex h-4 w-4">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-[8px] text-white items-center justify-center">N</span>
+            </span>
+        </button>
+    </div>
+
+    <!-- Memo Panel (Left Side, Unified Layout) -->
+    <div id="memo-panel" class="fixed bottom-24 left-4 md:left-10 w-[90%] md:w-80 bg-[#fef9c3] z-[70] rounded-sm shadow-[5px_5px_15px_rgba(0,0,0,0.2)] p-0 transform rotate-1 transition-transform duration-300 origin-bottom-left border-t-8 border-yellow-200/50">
+        <!-- Pin Effect -->
+        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-red-500 shadow-md z-10 border-2 border-white/50"></div>
+        
+        <!-- Header -->
+        <div class="flex justify-between items-center px-5 py-4 border-b border-yellow-600/10">
+            <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-suitcase-rolling mr-2"></i>My Travel Note</h3>
+            <button onclick="toggleMemo()" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark text-xl"></i></button>
+        </div>
+        
+        <!-- Unified Content Area (Vertical Layout) -->
+        <div class="flex flex-col h-[480px]">
+            
+            <!-- 1. Checklist Section -->
+            <div class="flex-1 p-5 overflow-y-auto border-b-2 border-dashed border-yellow-600/20 custom-scroll">
+                <h4 class="text-sm font-bold text-slate-600 mb-3 uppercase tracking-wide">✅ Essential Checklist</h4>
+                <div class="space-y-3 font-hand text-xl text-slate-800">
+                    <label class="flex items-start gap-3 cursor-pointer strikethrough-checked hover:bg-yellow-100/50 p-1 rounded transition">
+                        <div class="custom-checkbox relative w-5 h-5 flex-shrink-0 mt-1">
+                            <input type="checkbox" class="absolute opacity-0 w-full h-full cursor-pointer" data-check="passport" onchange="saveChecklist(this)">
+                            <div class="w-5 h-5 border-2 border-slate-400 rounded bg-white transition-colors duration-200"></div>
+                        </div>
+                        <span class="leading-relaxed">여권 (유효기간 확인)</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer strikethrough-checked hover:bg-yellow-100/50 p-1 rounded transition">
+                        <div class="custom-checkbox relative w-5 h-5 flex-shrink-0 mt-1">
+                            <input type="checkbox" class="absolute opacity-0 w-full h-full cursor-pointer" data-check="adapter" onchange="saveChecklist(this)">
+                            <div class="w-5 h-5 border-2 border-slate-400 rounded bg-white transition-colors duration-200"></div>
+                        </div>
+                        <span class="text-red-600 font-bold leading-relaxed">110V 돼지코 (필수)</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer strikethrough-checked hover:bg-yellow-100/50 p-1 rounded transition">
+                        <div class="custom-checkbox relative w-5 h-5 flex-shrink-0 mt-1">
+                            <input type="checkbox" class="absolute opacity-0 w-full h-full cursor-pointer" data-check="money" onchange="saveChecklist(this)">
+                            <div class="w-5 h-5 border-2 border-slate-400 rounded bg-white transition-colors duration-200"></div>
+                        </div>
+                        <span class="leading-relaxed">엔화 환전 & 지갑</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer strikethrough-checked hover:bg-yellow-100/50 p-1 rounded transition">
+                        <div class="custom-checkbox relative w-5 h-5 flex-shrink-0 mt-1">
+                            <input type="checkbox" class="absolute opacity-0 w-full h-full cursor-pointer" data-check="medicine" onchange="saveChecklist(this)">
+                            <div class="w-5 h-5 border-2 border-slate-400 rounded bg-white transition-colors duration-200"></div>
+                        </div>
+                        <span class="leading-relaxed">멀미약 (선박 이용 시)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 2. Free Memo Section -->
+            <div class="h-40 p-5 bg-yellow-500/5">
+                <h4 class="text-sm font-bold text-slate-600 mb-2 uppercase tracking-wide">📝 Free Memo</h4>
+                <textarea id="travel-memo" class="w-full h-full bg-transparent resize-none focus:outline-none font-hand text-xl text-slate-700 leading-6 paper-lines" placeholder="추가로 기억할 내용을 자유롭게 적어보세요."></textarea>
+            </div>
+            
+        </div>
+        
+        <div class="p-3 bg-yellow-200/50 text-center border-t border-yellow-600/10">
+            <span class="text-xs font-bold text-slate-500 flex items-center justify-center gap-1 w-full">
+                <i class="fa-solid fa-cloud-arrow-up"></i> 모든 내용은 자동 저장됩니다
+            </span>
+        </div>
+    </div>
+
+    <footer class="bg-slate-900 text-slate-500 py-12 text-center text-sm">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png" alt="Tourmaker" class="h-8 mx-auto mb-6 opacity-30 grayscale">
+        
+        <!-- Removed partnership text as requested -->
+
+        <p class="mb-2 font-bold text-slate-400">(주)투어메이커</p>
+        <p>예약/상담 전담: 김동석 담당자 | 연락처: 010-8919-6688</p>
+        <p class="mt-4 text-xs opacity-50">&copy; 2026 Tourmaker. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Event Constants (LocalStorage Namespace)
+        const EVENT_KEY = "tsushima_vip_20260523";
+
+        // D-Day Logic (Strict KST Calculation)
+        // 2026-05-23 00:00:00 KST
+        const targetDate = new Date('2026-05-23T00:00:00+09:00');
+        
+        function updateDDay() {
+            const now = new Date();
+            const diff = targetDate - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const dDayTag = document.getElementById('d-day-tag');
+            
+            if (days > 0) {
+                dDayTag.innerText = `D-${days} 남았습니다`;
+            } else if (days === 0) {
+                dDayTag.innerText = `TODAY: 여행 당일!`;
+                dDayTag.classList.replace('bg-red-600', 'bg-blue-600');
+            } else {
+                dDayTag.innerText = `여행이 종료되었습니다`;
+                dDayTag.classList.replace('bg-red-600', 'bg-slate-400');
+            }
+        }
+        updateDDay();
+
+        // Memo & Checklist Logic
+        function toggleMemo() {
+            document.getElementById('memo-panel').classList.toggle('open');
+            document.querySelector('.animate-attention')?.classList.remove('animate-attention');
+        }
+
+        // Auto Save
+        document.getElementById('travel-memo').addEventListener('input', function() {
+            localStorage.setItem(`${EVENT_KEY}_memo`, this.value);
+        });
+
+        // Save Checklist
+        function saveChecklist(checkbox) {
+            const id = checkbox.dataset.check;
+            const key = `${EVENT_KEY}_checklist`;
+            const state = JSON.parse(localStorage.getItem(key)) || {};
+            state[id] = checkbox.checked;
+            localStorage.setItem(key, JSON.stringify(state));
+        }
+
+        // Load Data
+        function loadMemoData() {
+            const savedMemo = localStorage.getItem(`${EVENT_KEY}_memo`);
+            if (savedMemo) document.getElementById('travel-memo').value = savedMemo;
+
+            const savedChecklist = JSON.parse(localStorage.getItem(`${EVENT_KEY}_checklist`)) || {};
+            for (const [id, isChecked] of Object.entries(savedChecklist)) {
+                const input = document.querySelector(`input[data-check="${id}"]`);
+                if (input) {
+                    input.checked = isChecked;
+                }
+            }
+        }
+        loadMemoData();
+
+        // Schedule Data (Modified for 12 Pax Busan Package)
+        const scheduleData = {
+            day1: {
+                title: "국경의 섬, 대마도 입국", date: "5/23 (토)",
+                items: [
+                    { time: "07:00", title: "태백 출발", desc: "집결지 미팅 후 부산항으로 이동 (전용 차량)" },
+                    { time: "11:00", title: "부산항 집결", desc: "부산 국제여객터미널 3층 팬스타 카운터 미팅 및 수속" },
+                    { time: "12:20", title: "부산 출발 (쓰시마링크)", desc: "설레는 마음을 안고 대마도로 출발 (약 1시간 20분 소요)" },
+                    { time: "13:40", title: "히타카츠 도착", desc: "입국 수속 및 현지 가이드 미팅" },
+                    { time: "오후", title: "미우다 해변 & 북부 관광", desc: "일본 100선 에메랄드 해변 산책 및 와타즈미 신사(차창) 조망" },
+                    { time: "17:00", title: "유타리 랜드 온천욕", desc: "여행의 피로를 푸는 개운한 온천욕 (수건 지참)" },
+                    { time: "19:00", title: "호텔 체크인 & BBQ 특식", desc: "이즈하라 뷰 호텔 투숙 및 해산물 BBQ 석식" }
+                ]
+            },
+            day2: {
+                title: "역사의 흔적과 부산의 밤", date: "5/24 (일)",
+                items: [
+                    { time: "08:00", title: "이즈하라 도보 관광", desc: "덕혜옹주 결혼 봉축비, 가네이시 성터 등 역사 탐방" },
+                    { time: "11:00", title: "북부 이동 & 에보시다케", desc: "아소만의 리아스식 해안을 360도로 조망하는 전망대" },
+                    { time: "14:00", title: "한국 전망대 & 면세점", desc: "부산이 보이는 전망대 관람 및 쇼핑" },
+                    { time: "17:10", title: "히타카츠 출발", desc: "대마도를 뒤로하고 부산으로 귀환" },
+                    { time: "18:30", title: "부산 도착 & 호텔 이동", desc: "부산 도착 후 전용 차량으로 호텔 이동" },
+                    { time: "19:30", title: "부산 자갈치 시장 (자유석식)", desc: "부산의 맛, 자갈치 시장 또는 남포동 먹자골목 투어" },
+                    { time: "21:00", title: "아스티 호텔 투숙", desc: "부산역 인근 쾌적한 호텔에서 휴식" }
+                ]
+            },
+            day3: {
+                title: "부산 핵심 힐링 투어", date: "5/25 (월)",
+                items: [
+                    { time: "09:00", title: "호텔 조식 & 체크아웃", desc: "여유로운 조식 후 3일차 일정 시작 (12인 전용 차량)" },
+                    { time: "10:00", title: "해동 용궁사", desc: "바다 위에 지어진 가장 아름다운 사찰 관람" },
+                    { time: "11:30", title: "해운대 블루라인 파크", desc: "해안 절경을 감상하는 해변열차 탑승 체험" },
+                    { time: "13:00", title: "중식 (금수복국 특식)", desc: "부산 명물, 시원한 복국 정식으로 든든한 점심 식사" },
+                    { time: "14:30", title: "동백섬 & 누리마루", desc: "APEC 하우스와 해운대 바다 산책" },
+                    { time: "15:30", title: "태백으로 출발", desc: "부산 출발 -> 태백 이동" },
+                    { time: "19:30", title: "태백 도착", desc: "안녕히 가십시오." }
+                ]
+            }
+        };
+
+        let currentDay = 'day1';
+        function switchDay(day) {
+            currentDay = day;
+            renderTabs();
+            renderContent();
+        }
+
+        function renderTabs() {
+            const container = document.getElementById('dayTabs');
+            container.innerHTML = Object.entries(scheduleData).map(([key, data]) => `
+                <button onclick="switchDay('${key}')" role="tab" aria-selected="${key === currentDay}" class="flex-1 px-4 py-4 text-sm font-bold transition-colors ${key === currentDay ? 'border-b-4 border-ocean text-slate-900 bg-slate-50' : 'text-slate-400 hover:bg-slate-50'}">
+                    <span class="block text-xs mb-1 font-normal">${data.date}</span>
+                    DAY ${key.slice(3)}
+                </button>
+            `).join('');
+        }
+
+        function renderContent() {
+            const data = scheduleData[currentDay];
+            document.getElementById('scheduleContent').innerHTML = `
+                <div class="animate-up">
+                    <h3 class="text-2xl font-black text-slate-900 mb-8">${data.title}</h3>
+                    <div class="space-y-0">
+                        ${data.items.map(item => `
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="flex flex-col md:flex-row gap-2 md:gap-8">
+                                    <span class="text-sm font-bold text-slate-400 w-16 pt-1 flex-shrink-0">${item.time}</span>
+                                    <div class="flex-1 bg-white p-5 rounded-lg border border-slate-100 shadow-sm w-full">
+                                        <h4 class="font-bold text-lg text-slate-800 mb-1">${item.title}</h4>
+                                        <p class="text-slate-600 text-sm font-medium leading-relaxed">${item.desc}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function playVideo(el, id) {
+            // Added start=11 as requested
+            el.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&mute=1&controls=1&start=11" class="absolute top-0 left-0 w-full h-full" frameborder="0" allowfullscreen></iframe>`;
+            el.classList.add('playing');
+        }
+
+        renderTabs();
+        renderContent();
+    </script>
+</body>
+</html>
